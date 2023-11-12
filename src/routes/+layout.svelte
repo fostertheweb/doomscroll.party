@@ -2,8 +2,6 @@
 	import '../app.css';
 </script>
 
-<svelte:head>
-	<script async src="https://www.tiktok.com/embed.js"></script>
-</svelte:head>
-
-<slot />
+<div class="flex h-screen w-screen items-start justify-center bg-slate-800">
+	<slot />
+</div>
