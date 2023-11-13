@@ -3,8 +3,12 @@
 
 	export let data;
 
+	console.log({ data });
+
+	// https://www.tiktok.com/@_catherine.victoria/video/7298066105984175402?is_from_webapp=1&sender_device=pc&web_id=7256837196001592878
 	function videoEnd() {
-		goto('/party/abc/videos/7282840340221152518');
+		console.log('Video end, navigating to next');
+		goto('/party/abc/video/7298066105984175402');
 	}
 
 	const next = [
@@ -51,17 +55,58 @@
 		<video class="rounded-lg shadow-lg" autoplay on:ended={videoEnd} src={data.src}>
 			<track kind="captions" />
 		</video>
+
 		<div class="flex h-full flex-col justify-between gap-6">
 			<div class="flex h-full flex-col gap-6">
 				<div class="flex flex-col gap-2 text-slate-50">
 					<h2 class="text-xl">{data.title}</h2>
-					<a class="text-lg font-medium text-teal-200/70" href={data.author_url} target="_blan"
-						>@{data.author_name}</a
+					<a
+						class="text-lg font-medium text-purple-300/70 hover:text-purple-300/90 hover:underline"
+						href={data.author_url}
+						target="_blank"
 					>
+						@{data.author_name}
+					</a>
 				</div>
 
 				<!-- Divider -->
-				<div class="h-px bg-slate-700/60"></div>
+				<div class="h-px bg-white/5"></div>
+
+				<div class="flex items-center gap-8 pb-5">
+					<div class="group relative flex h-12 w-12 items-center justify-center">
+						<button
+							class="absolute left-0 top-0 flex h-12 w-12 translate-x-0 items-center justify-center rounded-full border-2 border-lime-100/80 bg-lime-300/80 text-3xl"
+						>
+							<span class="drop-shadow-lg">🐶</span>
+						</button>
+						<span
+							class="absolute -bottom-6 z-20 rounded-full bg-white/10 px-2 py-px text-xs text-white/80"
+							>Me</span
+						>
+					</div>
+					<div class="group relative flex h-12 w-12 items-center justify-center">
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-100/90 bg-amber-300/80 text-3xl ring-4 ring-transparent"
+						>
+							<span class="drop-shadow-lg">🦖</span>
+						</div>
+						<span
+							class="absolute -bottom-6 z-20 rounded-full bg-white/10 px-2 py-px text-xs text-white/80"
+							>Joey</span
+						>
+					</div>
+					<div class="group relative flex h-12 w-12 items-center justify-center">
+						<div
+							class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-sky-100/90 bg-sky-300/80 text-3xl ring-4 ring-transparent"
+						>
+							<span class="drop-shadow-lg">🐞</span>
+						</div>
+						<span
+							class="absolute -bottom-6 z-20 rounded-full bg-white/10 px-2 py-px text-xs text-white/80"
+							>Brendan</span
+						>
+					</div>
+				</div>
 
 				<h3 class="text-xl font-medium text-white">Coming Up</h3>
 
@@ -77,29 +122,28 @@
 					{/each}
 				</div>
 			</div>
-			<div class=" flex items-center gap-8">
-				<div class="relative flex h-12 w-12 items-center justify-center">
-					<div
-						class:dsp-pulse={animated}
-						class="hidden h-12 w-12 items-center justify-center rounded-full shadow-lg shadow-purple-500/60 ring-8 ring-purple-400/50"
-					></div>
-					<button
-						on:click={toggleAnimated}
-						class="absolute left-0 top-0 flex h-12 w-12 translate-x-0 items-center justify-center rounded-full border-2 border-lime-100/80 bg-lime-300/80 text-3xl"
+
+			<div class="flex items-center rounded-full border-2 border-white/25 bg-black/10 p-3 pl-6">
+				<input
+					placeholder="https://www.tiktok.com/@americanhighshorts/video/7281371275841260843"
+					type="text"
+					class="w-full bg-transparent text-white focus:outline-none"
+					name="url"
+					id="url"
+				/>
+				<button
+					class="flex h-8 w-8 items-center justify-center text-3xl text-white/80 hover:text-white"
+				>
+					<svg
+						class="dsp-plus-circle drop-shadow"
+						xmlns="http://www.w3.org/2000/svg"
+						height="1em"
+						viewBox="0 0 512 512"
+						><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+							d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+						/></svg
 					>
-						<span class="drop-shadow-lg">🐶</span>
-					</button>
-				</div>
-				<div
-					class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-100/90 bg-amber-300/80 text-3xl ring-4 ring-transparent"
-				>
-					<span class="drop-shadow-lg">🦖</span>
-				</div>
-				<div
-					class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-sky-100/90 bg-sky-300/80 text-3xl ring-4 ring-transparent"
-				>
-					<span class="drop-shadow-lg">🐞</span>
-				</div>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -110,18 +154,7 @@
 		max-height: 100%;
 	}
 
-	.dsp-pulse {
-		animation: pulse 1s ease-in none;
-	}
-
-	@keyframes pulse {
-		0%,
-		100% {
-			opacity: 1;
-		}
-
-		50% {
-			opacity: 0;
-		}
+	.dsp-plus-circle {
+		fill: currentColor;
 	}
 </style>

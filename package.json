@@ -1,5 +1,5 @@
 {
-	"name": "doomscroll.party",
+	"name": "doomscroll-party",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -20,6 +20,7 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",
+		"partykit": "0.0.34",
 		"postcss": "^8.4.31",
 		"prettier": "^3.0.3",
 		"prettier-plugin-svelte": "^3.1.0",
@@ -33,7 +34,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fontsource/outfit": "^5.0.8",
 		"jsdom": "^22.1.0",
-		"node-iframe": "^1.9.4"
+		"node-iframe": "^1.9.4",
+		"partysocket": "0.0.14",
+		"tinybase": "^4.4.1"
 	}
 }
