@@ -5,6 +5,14 @@ export async function getTikTokEmbed(videoUrl: string) {
 	return json as TikTokEmbed;
 }
 
+export function getIdFromUrl(input: string) {
+	const url = new URL(input);
+
+	const videoId = url.pathname.split('/').pop();
+
+	console.log(videoId);
+}
+
 type TikTokEmbed = {
 	version: string;
 	type: string;

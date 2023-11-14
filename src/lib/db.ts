@@ -5,14 +5,27 @@ import type PartySocket from 'partysocket';
 
 export const store = createStore();
 
+export type Video = {
+	id: string;
+	title: string;
+	thumbnailUrl: string;
+	authorName: string;
+	authorUrl: string;
+	videoId: string;
+	videoSrc: string;
+	addedAt: number;
+	addedBy: string;
+	position: number;
+};
+
 store.setTablesSchema({
 	videos: {
-		tiktokId: { type: 'string' },
 		title: { type: 'string' },
+		thumbnailUrl: { type: 'string' },
 		authorName: { type: 'string' },
 		authorUrl: { type: 'string' },
+		videoId: { type: 'string' },
 		videoSrc: { type: 'string' },
-		providerId: { type: 'string' },
 		addedAt: { type: 'number' },
 		addedBy: { type: 'string' },
 		position: { type: 'number' }
@@ -32,9 +45,9 @@ export async function createDatabase(partySocket: PartySocket) {
 	await persister.startAutoLoad();
 }
 
-export function cellsToRows(table: Table) {
-	const rows = Object.entries(table).map(([id, item]) => {
-		return { id, ...item };
+export function videosTableToCollection(table: Table) {
+	const rows = Object.entries(table).map(([id, video]) => {
+		return { id, ...video } as Video;
 	});
 
 	return rows;

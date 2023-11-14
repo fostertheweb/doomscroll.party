@@ -10,7 +10,7 @@
 </svelte:head>
 
 {#key data.pathname}
-	<div in:slide={{ axis: 'y', duration: 300, easing: linear }} class="h-full">
+	<div in:slide={{ axis: 'y', duration: 300, easing: linear }} class="w-auto">
 		<slot />
 	</div>
 {/key}

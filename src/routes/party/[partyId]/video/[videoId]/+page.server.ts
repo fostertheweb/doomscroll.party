@@ -27,5 +27,15 @@ export async function load({ params }) {
 	}
 
 	const { title, author_name, author_url, thumbnail_url } = await getTikTokEmbed(url);
-	return { id: videoId, src, title, author_name, author_url, thumbnail_url };
+
+	const video = {
+		title,
+		authorName: author_name,
+		authorUrl: author_url,
+		thumbnailUrl: thumbnail_url,
+		videoId: videoId,
+		videoSrc: src
+	};
+
+	return { video };
 }
