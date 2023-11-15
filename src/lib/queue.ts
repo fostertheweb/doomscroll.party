@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Video } from './db';
+import type { Video, VideoListItem } from './db';
 
-export const queue = writable<Video[]>([]);
+export const queue = writable<VideoListItem[]>([]);
 export const currentVideo = writable<Video | Partial<Video> | null>(null);

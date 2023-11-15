@@ -3,20 +3,26 @@
 
 	import { page } from '$app/stores';
 	import Viewers from '$lib/components/Viewers.svelte';
-	import { createDatabase, store, videosTableToCollection } from '$lib/db';
+	import { createDatabase, createVideoListItem, store, videosTableToCollection } from '$lib/db';
 	import { createPartySocket, createStoreSocket, party } from '$lib/party';
 	import { currentVideo, queue } from '$lib/queue';
-	import { getIdFromUrl } from '$lib/tiktok';
 	import type PartySocket from 'partysocket';
 
 	let storeSocket: PartySocket | null;
 	let tableListenerId: string;
 	let url: string;
+	let isAdding = false;
+	let firstVideoId: string;
 
-	const firstVideoId = '7281371275841260843';
+	queue.subscribe((videoQueue) => {
+		firstVideoId = videoQueue[0]?.videoId;
+	});
 
-	function handleSubmit() {
-		getIdFromUrl(url);
+	async function handleSubmit() {
+		isAdding = true;
+		await createVideoListItem(url, $party?.id!);
+		isAdding = false;
+		url = '';
 	}
 
 	onMount(async () => {
@@ -60,7 +66,13 @@
 						</a>
 					</div>
 				{:else}
-					<a href={`/party/${$page.params.partyId}/video/${firstVideoId}`}>Start Scrolling</a>
+					<div>
+						<a
+							href={`/party/${$page.params.partyId}/video/${firstVideoId}`}
+							class="rounded-full bg-white/80 px-4 py-2 text-slate-800 shadow hover:bg-white"
+							>Start Scrolling</a
+						>
+					</div>
 				{/if}
 
 				<!-- Divider -->
@@ -92,20 +104,29 @@
 					name="url"
 					id="url"
 				/>
-				<button
-					on:click={handleSubmit}
-					class="flex h-8 w-8 items-center justify-center text-3xl text-white/80 hover:text-white"
-				>
-					<svg
-						class="dsp-plus-circle drop-shadow"
-						xmlns="http://www.w3.org/2000/svg"
-						height="1em"
-						viewBox="0 0 512 512"
-						><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
-							d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
-						/></svg
+				{#if isAdding}
+					<span
+						class="flex h-8 w-8 items-center justify-center text-3xl text-white/80 hover:text-white"
 					>
-				</button>
+						O
+					</span>
+				{:else}
+					<button
+						disabled={!url || url.length === 0}
+						on:click={handleSubmit}
+						class="flex h-8 w-8 items-center justify-center text-3xl text-white/80 hover:text-white"
+					>
+						<svg
+							class="dsp-plus-circle drop-shadow"
+							xmlns="http://www.w3.org/2000/svg"
+							height="1em"
+							viewBox="0 0 512 512"
+							><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
+								d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+							/></svg
+						>
+					</button>
+				{/if}
 			</div>
 		</div>
 	</div>

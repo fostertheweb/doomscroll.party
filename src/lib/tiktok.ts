@@ -7,10 +7,8 @@ export async function getTikTokEmbed(videoUrl: string) {
 
 export function getIdFromUrl(input: string) {
 	const url = new URL(input);
-
-	const videoId = url.pathname.split('/').pop();
-
-	console.log(videoId);
+	const part = url.pathname.split('/').pop();
+	return part?.split('?')[0];
 }
 
 type TikTokEmbed = {

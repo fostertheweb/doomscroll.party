@@ -10,14 +10,21 @@ export async function load({ params }) {
 	const DOMParser = new JSDOM().window.DOMParser;
 	const parser = new DOMParser();
 	const document = parser.parseFromString(frame, 'text/html');
-
-	let url = null;
 	const src = document.querySelector('video')?.src ?? '';
 	const anchors = document.querySelectorAll('a');
 
+	let url = null;
+
 	for (const a of anchors) {
 		if (a.href.startsWith('https://www.tiktok.com/@')) {
-			url = a.href;
+			const creatorUrl = new URL(a.href);
+			const base = 'https://www.tiktok.com/';
+			const path = creatorUrl.pathname.split('/').pop();
+			const author = path?.split('?')[0];
+			const videoPath = `/video/${videoId}`;
+
+			url = base + author + videoPath;
+
 			break;
 		}
 	}

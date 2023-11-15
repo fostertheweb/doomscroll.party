@@ -1,13 +1,26 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { currentVideo } from '$lib/queue.js';
+	import { page } from '$app/stores';
+	import { currentVideo, queue } from '$lib/queue.js';
 
 	export let data;
 
+	let nextVideoId: string;
 	$currentVideo = data.video!;
 
+	queue.subscribe((videoQueue) => {
+		const currentIndex = videoQueue.findIndex((video) => video.videoId === data.video?.videoId);
+		const nextVideo = videoQueue[currentIndex + 1];
+
+		if (nextVideo) {
+			nextVideoId = nextVideo.videoId;
+		}
+	});
+
 	function videoEnd() {
-		goto('/party/abc/video/7298066105984175402');
+		if (nextVideoId) {
+			goto(`/party/${$page.params.partyId}/video/${nextVideoId}`);
+		}
 	}
 </script>
 
