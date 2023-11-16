@@ -38,6 +38,7 @@
 		"jsdom": "^22.1.0",
 		"node-iframe": "^1.9.4",
 		"partysocket": "0.0.14",
+		"short-unique-id": "^5.0.3",
 		"tinybase": "^4.4.1"
 	}
 }

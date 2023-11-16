@@ -95,7 +95,9 @@
 				</div>
 			</div>
 
-			<div class="flex items-center rounded-full border-2 border-white/25 bg-black/10 p-3 pl-6">
+			<div
+				class="flex items-center rounded-full border-2 border-white/25 bg-black/10 p-3 pl-6 focus-within:border-white/70"
+			>
 				<input
 					bind:value={url}
 					placeholder="https://www.tiktok.com/@americanhighshorts/video/7281371275841260843"

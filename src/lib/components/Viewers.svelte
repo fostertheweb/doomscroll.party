@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <div class="flex items-center gap-8 pb-5">
 	<div class="group relative flex h-12 w-12 items-center justify-center">
 		<button
