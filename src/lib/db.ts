@@ -41,6 +41,13 @@ export async function createVideoListItem(url: string, addedBy: string) {
 	store.addRow('videos', video);
 }
 
+export type User = {
+	name: string;
+	emoji: string;
+	color: string;
+	isHost: boolean;
+};
+
 store.setTablesSchema({
 	videos: {
 		title: { type: 'string' },
@@ -54,7 +61,8 @@ store.setTablesSchema({
 	doomers: {
 		emoji: { type: 'string' },
 		name: { type: 'string' },
-		color: { type: 'string' }
+		color: { type: 'string' },
+		isHost: { type: 'boolean', default: false }
 	}
 });
 

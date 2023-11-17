@@ -9,8 +9,10 @@ export const actions = {
 		const user = {
 			name: data.get('name'),
 			emoji: data.get('emoji'),
-			color: data.get('color')
+			color: data.get('color'),
+			isHost: true
 		};
+
 		cookies.set('doomer', JSON.stringify(user), {
 			path: '/',
 			sameSite: 'lax',

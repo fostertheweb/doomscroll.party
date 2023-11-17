@@ -8,6 +8,8 @@
 	import { currentVideo, queue } from '$lib/queue';
 	import type PartySocket from 'partysocket';
 
+	export let data;
+
 	let storeSocket: PartySocket | null;
 	let tableListenerId: string;
 	let url: string;
@@ -78,7 +80,7 @@
 				<!-- Divider -->
 				<div class="h-px bg-white/5"></div>
 
-				<Viewers />
+				<Viewers currentUser={data?.user} />
 
 				<h3 class="text-xl font-medium text-white">Coming Up</h3>
 
