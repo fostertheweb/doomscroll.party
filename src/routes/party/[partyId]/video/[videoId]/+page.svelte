@@ -1,35 +1,47 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { currentVideo, queue } from '$lib/queue.js';
+	import { queue } from '$lib/queue.js';
 
 	export let data;
 
-	let nextVideoId: string;
-	$currentVideo = data.video!;
+	let videoElement: HTMLVideoElement;
 
-	queue.subscribe((videoQueue) => {
-		const currentIndex = videoQueue.findIndex((video) => video.videoId === data.video?.videoId);
-		const nextVideo = videoQueue[currentIndex + 1];
-
-		if (nextVideo) {
-			nextVideoId = nextVideo.videoId;
-		}
-	});
+	function delayPlay() {
+		setTimeout(() => {
+			videoElement.play();
+		}, 750);
+	}
 
 	function videoEnd() {
+		const currentIndex = $queue.findIndex((video) => video.videoId === data.video?.videoId);
+		const nextVideo = $queue[currentIndex + 1];
+		const nextVideoId = nextVideo.videoId;
+
 		if (nextVideoId) {
+			console.log({ nextVideoId });
 			goto(`/party/${$page.params.partyId}/video/${nextVideoId}`);
 		}
+
+		// TODO: if last video, allow restart queue
 	}
 </script>
 
-<video class="rounded-lg shadow-lg" autoplay on:ended={videoEnd} src={data.video?.videoSrc}>
-	<track kind="captions" />
-</video>
+{#key data.pathname}
+	<video
+		class="h-full max-h-screen min-h-screen"
+		bind:this={videoElement}
+		on:canplay={delayPlay}
+		on:ended={videoEnd}
+		src={data.video?.videoSrc}
+	>
+		<track kind="captions" />
+	</video>
+{/key}
 
 <style>
 	video {
-		max-height: 100%;
+		aspect-ratio: 9 / 16;
+		background-color: black;
 	}
 </style>

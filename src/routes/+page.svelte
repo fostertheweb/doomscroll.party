@@ -83,7 +83,7 @@
 			</div>
 			<span
 				class:hidden={!name}
-				class="absolute -bottom-10 z-20 rounded-full bg-white/10 px-2 py-px text-base text-white/80"
+				class="absolute -bottom-10 z-20 rounded-full bg-white/10 px-2 py-px text-sm text-white/80"
 				>{name}</span
 			>
 		</div>

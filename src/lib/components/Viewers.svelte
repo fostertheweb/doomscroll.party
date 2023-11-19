@@ -7,7 +7,7 @@
 	let users: User[] = [];
 </script>
 
-<div class="flex items-center gap-8 pb-5">
+<div class="absolute bottom-0 left-0 flex w-full items-center gap-8 p-4">
 	{#if currentUser}
 		<Viewer user={{ ...currentUser, name: 'Me' }} />
 	{/if}
